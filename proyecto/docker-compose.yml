@@ -1,0 +1,33 @@
+
+services:
+  flask:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      - mi_red
+    environment:
+      - FLASK_ENV=development
+      - MONGO_URI=mongodb://maxi:123@mongodb:27017/juegosdb
+
+  mongodb:
+   image: mongo:latest
+   ports:
+     - "27017:27017"
+   networks:
+     - mi_red
+   volumes:
+     - mongo_data:/data/db
+   environment:
+    - MONGO_INITDB_ROOT_USERNAME=maxi
+    - MONGO_INITDB_ROOT_PASSWORD=123
+    - MONGO_INITDB_DATABASE=juegosdb
+
+networks:
+  mi_red:
+    driver: bridge
+
+volumes:
+  mongo_data:

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Juegos de Mesa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">  <!--Utilizo bootstrap-->
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">TRABAJO PRÁCTICO SO</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- Alta juego de mesa -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Carga un juego de mesa</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/juego" method="POST">
+                            <label for="id">Id</label>
+                            <input type="text" class="form-control mb-3" name="id" required>
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control mb-3" name="nombre" required>
+                            <label for="minJugadores">Mínimo de Jugadores</label>
+                            <input type="number" class="form-control mb-3" name="minJugadores" required>
+                            <label for="maxJugadores">Máximo de Jugadores</label>
+                            <input type="number" class="form-control mb-3" name="maxJugadores" required>
+                            <label for="limiteEdad">Límite de Edad</label>
+                            <input type="number" class="form-control mb-3" name="limiteEdad" required>
+                            <label for="pais">País de origen</label>
+                            <input type="text" class="form-control mb-3" name="pais" required>
+                            <label for="precio">Precio en USD</label>
+                            <input type="number" class="form-control mb-3" name="precio" required>
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de juegos de mesa-->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Juegos de mesa</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list">
+                            <div class="row">
+                                {% for juego in juegos %}
+                                <div class="col-md-4">
+                                    <li class="list-group-item mb-3">
+                                        <form action="/edit/{{juego.id}}" method="POST">
+                                            <label for="id">Id</label>
+                                            <input type="text" class="form-control mb-2" value="{{juego.id}}" name="id" readonly>
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control mb-2" value="{{juego.nombre}}" name="nombre" required>
+                                            <label for="minJugadores">Mínimo de Jugadores</label>
+                                            <input type="number" class="form-control mb-2" value="{{juego.minJugadores}}" name="minJugadores" required>
+                                            <label for="maxJugadores">Máximo de Jugadores</label>
+                                            <input type="number" class="form-control mb-2" value="{{juego.maxJugadores}}" name="maxJugadores" required>
+                                            <label for="limiteEdad">Límite de edad</label>
+                                            <input type="number" class="form-control mb-2" value="{{juego.limiteEdad}}" name="limiteEdad" required>
+                                            <label for="pais">País de origen</label>
+                                            <input type="text" class="form-control mb-2" value="{{juego.pais}}" name="pais" required>
+                                            <label for="precio">Precio en USD</label>
+                                            <input type="number" class="form-control mb-2" value="{{juego.precio}}" name="precio" required>
+                                            <button class="btn btn-primary btn-sm mt-2" type="submit">Editar</button>
+                                            <a href="{{ url_for('delete', juego_id=juego.id) }}" class="btn btn-danger btn-sm mt-2">Eliminar</a>
+                                        </form>
+                                    </li>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

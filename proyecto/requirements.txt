@@ -1,0 +1,4 @@
+Flask==2.2.2
+mod_wsgi==4.9.0
+Werkzeug==2.2.2
+pymongo==4.0.0  
